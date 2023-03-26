@@ -1,24 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import PostsTable from './component/postsTable'
+import { useAppDispatch, useAppSelector } from './store/hooks';
+import React from "react";
+import {
+  fetchposts
+} from "./store/postSlice";
 
 function App() {
+
+const dispatch =useAppDispatch();
+    React.useEffect(()=>{
+      dispatch(fetchposts())
+    },[]
+)
+
+const posts = useAppSelector(state=> state.post.posts)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+   
+    <div>
+      <div style={{display:"flex" , justifyContent:"center"}}> POST LIST </div>
+       <PostsTable posts={posts}/>
     </div>
   );
 }
